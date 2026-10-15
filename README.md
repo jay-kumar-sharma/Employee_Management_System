@@ -50,16 +50,46 @@ the application easier to maintain, develop, and extend.
 
 ## Architecture
 
-The project contains the following services:
+The application follows a microservices architecture, separating
+authentication, employee management, attendance, and payroll
+functionality into independent services.
 
-| Service | Responsibility |
-|---|---|
-| Auth Service | Authentication-related functionality |
-| Employee Service | Employee-related operations |
-| Attendance Service | Attendance-related operations |
-| Payroll Service | Payroll-related operations |
-| Discovery Server | Service registration and discovery |
-| API Gateway | Entry point for routing API requests |
+### Services
+
+| Service | Port | Responsibility |
+|---|---:|---|
+| Auth Service | 8080 | Authentication and security |
+| Discovery Server | 8761 | Service registration and discovery |
+| Employee Service | Verify configuration | Employee management |
+| Attendance Service | Verify configuration | Attendance management |
+| Payroll Service | Verify configuration | Payroll management |
+| API Gateway | Verify configuration | Centralized API routing |
+
+### Architecture Diagram
+
+```text
+                    Client Application
+                           |
+                           v
+                      API Gateway
+                           |
+              +------------+------------+
+              |            |            |
+              v            v            v
+        Auth Service  Employee Service  Attendance Service
+              |            |            |
+              +------------+------------+
+                           |
+                    Payroll Service
+
+                Discovery Server (Eureka)
+                       Port 8761
+```
+
+**Note:** This is a conceptual diagram. Actual request routing and
+service communication depend on the application's configuration.
+
+
 
 ### Request Flow
 
